@@ -10,10 +10,36 @@ const { fs, log, util } = require('vortex-api');
 
 function main(context) {
 	//This is the main function Vortex will run when detecting the game extension. 
-	
+	context.registerGame({
+        id: GAME_ID,
+        name: 'Darkest Dungeon II',
+        mergeMods: true,
+        queryPath: findGame,
+        supportedTools: [],
+        queryModPath: () => 'C:\Program Files (x86)\Steam\steamapps\common\Darkest Dungeon® II',
+        logo: 'gameart.jpg',
+        executable: () => 'Darkest Dungeon II.exe',
+        requiredFiles: [
+          'C:\Program Files (x86)\Steam\steamapps\common\Darkest Dungeon® II\Darkest Dungeon II.exe',
+          'UnityPlayer.dll',
+        ],
+        setup: prepareForModding,
+        environment: {
+          SteamAPPId: STEAMAPP_ID,
+        },
+        details: {
+          steamAppId: STEAMAPP_ID,
+        },
+      });
+
 	return true;
 }
 
 module.exports = {
     default: main,
 };
+
+function findGame() {
+    return util.GameStoreHelper.findByAppId([STEAMAPP_ID])
+        .then(game => game.gamePath);
+  }
