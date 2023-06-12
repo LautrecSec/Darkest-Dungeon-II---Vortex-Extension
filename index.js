@@ -16,7 +16,7 @@ function main(context) {
         mergeMods: true,
         queryPath: findGame,
         supportedTools: [],
-        queryModPath: () => 'C:\Program Files (x86)\Steam\steamapps\common\Darkest Dungeon® II',
+        queryModPath: () => '/streamingassets/excel',
         logo: 'gameart.jpg',
         executable: () => 'Darkest Dungeon II.exe',
         requiredFiles: [
